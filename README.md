@@ -7,6 +7,6 @@ Running `python ps_5_4.py` will show a real time solution to the the advection-d
 Running `python ps_5_5.py` will show a 1D hydro solver simulation using the donor cell advection scheme.
 
 
-Package Dependencies:
+Package Dependencies: \n
 matplotlib==3.3.2  
 numpy==1.17.0 
