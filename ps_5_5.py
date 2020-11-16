@@ -56,7 +56,7 @@ def update_f_wsource(f_2, f_1, ngrid, prefactor_source):
     """
     return f_2[1:ngrid-1] - (prefactor_source) * (f_1[2:] - f_1[:ngrid-2])
 
-def gaussian(x_arr, pos, stdev, gauss_height=0.2, offset=5):
+def gaussian(x_arr, pos, stdev, gauss_height, scale_factor=0.2, offset=20):
     """
     Returns a Gaussian function evaluation at the x values inputted.
     :param x_arr: input x values to calculate gaussian at
@@ -64,16 +64,18 @@ def gaussian(x_arr, pos, stdev, gauss_height=0.2, offset=5):
     :param stdev: standard deviation of gaussian (\sigma)
     :param gauss_height: setting height of gaussian to scale it
     :param offset: offsetting Gaussian by some value to avoid values being too small.
-    :return:
+    Note: Many of these parameters were quite sensitive and required trial and error tweaking
+    to create a meaningful looking shock.
     """
-    return gauss_height*(np.exp(-((x_arr-pos)/stdev)**2) + offset)
+    return scale_factor*(gauss_height*np.exp(-((x_arr-pos)/stdev)**2) + offset)
 
-def hydro_solver(dt, dx, ngrid, nsteps, c_s=343):
+def hydro_solver(dt, dx, ngrid, nsteps, perturbation_amplitude, c_s=343):
     """
     :param dt: time spacing
     :param dx: position spacing
     :param ngrid: size of 1D grid
     :param nsteps: a proxy for time
+    :param perturbation_amplitude: amplitude of perturbation
     :param c_s: speed of sound, default 343 m/s
     """
     # Prefactor of the integration without source term
@@ -97,7 +99,7 @@ def hydro_solver(dt, dx, ngrid, nsteps, c_s=343):
     gauss_stdev = 20
 
     # Setting the initial values of f_1 = rho to a gaussian perturbation
-    f_1 = gaussian(x_arr, gauss_pos, gauss_stdev)
+    f_1 = gaussian(x_arr, gauss_pos, gauss_stdev, perturbation_amplitude)
 
     # Setting f_2 = rho*u values to their initial values based on f_1 and u_arr
     f_2[:-1] = u_arr*f_1[:-1]
@@ -153,4 +155,7 @@ ngrid = 10000 # grid size
 nsteps = int(1e5) # time steps
 
 # Calling 1D hydro solver with input parameters above
-hydro_solver(dt, dx, ngrid, nsteps)
+# perturbation amplitude controls the amplitude of perturbation
+perturbation_amplitude = 1
+
+hydro_solver(dt, dx, ngrid, nsteps, perturbation_amplitude)
