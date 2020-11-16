@@ -1,5 +1,7 @@
 Solution to Problem Set 5 from Astrophysical Fluids at McGill University taught by Prof. Eve Lee. The handout PHYS 643: Writing Hydro Codes by Eve Lee is referenced in the solutions to this assignment.
 
+Collaborators: Alice Curtin & Nicholas Vieira
+
 **Answer to conceptual questions in #5:**
 As we increase the amplitude of the perturbation, we see that the shock occurs more quickly. If we set the amplitude too high, then the integration becomes unstable and causes values of `\rho` to go to infinity. This creates an unstable numerical solution.
 
@@ -17,6 +19,9 @@ Instructions for use:
 
 `python ps_5_5.py` shows a 1D hydro solver simulation using the donor cell advection scheme. Reference: https://www.ita.uni-heidelberg.de/~dullemond/lectures/num_fluid_2011/Chapter_5.pdf
 
+Python Version: 
+
+Python 3.7.4 
 
 Package Dependencies:
 
