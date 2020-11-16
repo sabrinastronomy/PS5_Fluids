@@ -62,7 +62,7 @@ def advection(dt, dx, ngrid, nsteps, u):
         fig.canvas.draw()
         plt.pause(0.0001) # Pausing plot to see evolution before moving on to next iteration
 
-    plt.close('all') # Closing plotting instance
+    plt.close() # Closing plotting instance
     return
 
 
@@ -72,7 +72,7 @@ def advection(dt, dx, ngrid, nsteps, u):
 ngrid = 40  # grid size
 nsteps = 4000  # time steps
 
-# Setting up grid spacing
+# Setting up grid
 dt, dx = 1, 1  # grid spacing
 u = -0.1  # velocity
 # Note: satisfies Courant condition because dt < dx/u

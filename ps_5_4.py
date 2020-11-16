@@ -14,9 +14,8 @@ import matplotlib.pyplot as plt
 def implicit_diffusion_term(f_n, diff_factor):
     """
     This function calculates the diffusion term using the implicit scheme outlined in section 2.5.2 of handout.
-    :param f_n:
-    :param beta:
-    :return:
+    :param f_n: current f array
+    :param diff_factor: diffusion factor
     """
     beta = diff_factor*dt/(dx**2)
     # Initializing tri-diagonal matrix with elements -beta, (1+2beta), -beta according to handout
@@ -86,8 +85,7 @@ def advection_diffusion(dt, dx, ngrid, nsteps, u, d_arr = [0.1, 1]):
         lf_plot2.set_ydata(f_n_lf_2)
         fig.canvas.draw()
         plt.pause(0.0001) # Pausing plot to see evolution before moving on to next iteration
-    plt.close('all') # Closing plotting instance
-    return
+    plt.close() # Closing plotting instance
 
 
 # Running Problem 4
@@ -96,7 +94,7 @@ def advection_diffusion(dt, dx, ngrid, nsteps, u, d_arr = [0.1, 1]):
 ngrid = 40  # grid size
 nsteps = 4000  # time steps
 
-# Setting up grid spacing
+# Setting up grid
 dt, dx = 1, 1  # grid spacing
 u = -0.1  # velocity
 # Note: satisfies Courant condition because dt < dx/u
